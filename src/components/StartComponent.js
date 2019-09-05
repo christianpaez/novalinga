@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
-class Content extends Component {
+class Start extends Component {
   render() {
     return(
       <section className="page-section" id="services">
     <div className="container">
       <div className="row">
         <div className="col-lg-12 text-center">
-          <h2 className="section-heading text-uppercase">Services</h2>
+          <h2 className="section-heading text-uppercase">INICIO</h2>
           <h3 className="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
         </div>
       </div>
@@ -42,4 +42,4 @@ class Content extends Component {
     );
   }
 }
-export default Content;
+export default Start;

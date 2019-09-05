@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Navbar from './NavbarComponent';
 import Footer from './FooterComponent';
-import Content from './ContentComponent';
+import Start from './StartComponent';
 
 
 class Main extends Component {
@@ -9,7 +9,7 @@ class Main extends Component {
     return (
       <div>
        <Navbar />
-       <Content />
+       <Start />
        <Footer />
       </div>
     );
