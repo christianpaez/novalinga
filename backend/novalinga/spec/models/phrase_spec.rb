@@ -1,5 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Phrase, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "validations" do
+    it "should validate presence of fields" do
+      should validate_presence_of(:input_language)
+      should validate_presence_of(:output_language)
+      should validate_presence_of(:phonetic)
+      should validate_presence_of(:audio_url)
+      should validate_presence_of(:lesson_id)
+    end
+  end
 end
