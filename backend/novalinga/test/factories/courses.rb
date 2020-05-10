@@ -1,9 +1,8 @@
 FactoryBot.define do
-  factory :phrase do
+  factory :course do
     input_language { Faker::Lorem.sentence }
     output_language { Faker::Lorem.sentence }
-    phonetic { Faker::Lorem.sentence }
-    audio_url { Faker::Internet.url }
-    lesson
+    title { Faker::Lorem.word }
+    image_url { Faker::Internet.url }
   end
 end
