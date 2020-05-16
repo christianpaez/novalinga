@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   get '/health', to: 'health#health'
   resources :phrases, only: [:index, :show, :create, :update, :destroy]
   resources :lessons, only: [:index, :show, :create, :update, :destroy]
+  resources :courses, only: [:index, :show, :create, :update, :destroy]
 end
