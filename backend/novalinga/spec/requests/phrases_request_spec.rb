@@ -48,11 +48,11 @@ RSpec.describe "Phrases endpoint", type: :request do
             post '/phrases', params: data
             response_body = JSON.parse(response.body)
             expect(response_body).not_to be_empty
-            expect(response_body['input_language']).to eq(data.phrase.input_language)
-            expect(response_body['output_language']).to eq(data.phrase.output_language)
-            expect(response_body['phonetic']).to eq(data.phrase.phonetic)
-            expect(response_body['audio_url']).to eq(data.phrase.audio_url)
-            expect(response_body['lesson_id']).to eq(data.phrase.lesson_id)
+            expect(response_body['input_language']).to eq(data[:phrase][:input_language])
+            expect(response_body['output_language']).to eq(data[:phrase][:output_language])
+            expect(response_body['phonetic']).to eq(data[:phrase][:phonetic])
+            expect(response_body['audio_url']).to eq(data[:phrase][:audio_url])
+            expect(response_body['lesson_id']).to eq(data[:phrase][:lesson_id])
             expect(response).to have_http_status(201)
         end
     end
@@ -72,10 +72,10 @@ RSpec.describe "Phrases endpoint", type: :request do
             response_body = JSON.parse(response.body)
             expect(response_body).not_to be_empty
             expect(response_body['id']).to eq(phrase.id)
-            expect(response_body['input_language']).to eq(phrase.input_language)
-            expect(response_body['output_language']).to eq(phrase.output_language)
-            expect(response_body['phonetic']).to eq(phrase.phonetic)
-            expect(response_body['audio_url']).to eq(phrase.audio_url)
+            expect(response_body['input_language']).to eq(data[:phrase][:input_language])
+            expect(response_body['output_language']).to eq(data[:phrase][:output_language])
+            expect(response_body['phonetic']).to eq(data[:phrase][:phonetic])
+            expect(response_body['audio_url']).to eq(data[:phrase][:audio_url])
             expect(response).to have_http_status(200)
         end
     end
