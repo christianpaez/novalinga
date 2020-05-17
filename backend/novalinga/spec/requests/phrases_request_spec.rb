@@ -91,6 +91,7 @@ RSpec.describe "Phrases endpoint", type: :request do
             expect(response_body['output_language']).to eq(phrase.output_language)
             expect(response_body['phonetic']).to eq(phrase.phonetic)
             expect(response_body['audio_url']).to eq(phrase.audio_url)
+            expect(response_body['lesson_id']).to eq(phrase.lesson_id)
             expect(response).to have_http_status(200)
         end
     end

@@ -1,6 +1,6 @@
 FactoryBot.define do
-    factory :users_course do
-      users
+    factory :userscourse do
+      user
       course
     end
   end
