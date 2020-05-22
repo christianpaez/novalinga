@@ -4,7 +4,8 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string :email
       t.string :password
       t.string :username
-
+      t.string :google_token
+      t.string :google_refresh_token
       t.timestamps
     end
   end
