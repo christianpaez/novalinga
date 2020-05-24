@@ -10,7 +10,14 @@ class SessionsController < ApplicationController
       refresh_token: @auth['refresh_token'],
       expires_at: Time.at(@auth['expires_at']).to_datetime
       )
+      redirect_to root_path
   end
   def new
+  end
+
+  def destroy
+    session.delete :user
+  
+    redirect_to root_path
   end
 end

@@ -4,6 +4,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
       scope: ['email',
       'https://www.googleapis.com/auth/gmail.modify'],
       skip_jwt: true,
-      access_type: 'offline'
+      access_type: 'offline',
+      image_size: 150,
     }
 end

@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   #get "/logout", to: "sessions#destroy"
   # [END logout]
   root 'sessions#new'
+  get "/logout", to: "sessions#destroy"
   resources :sessions, only: :index
   get "/auth/:provider/callback" => 'sessions#create'
 end
