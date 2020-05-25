@@ -1,12 +1,8 @@
 class User < ApplicationRecord
-  validates :username, presence: true
-  validates :password, presence: true
-  validates :email, presence: true
-  def self.from_omniauth(auth)
-    # Creates a new user only if it doesn't exist
-    where(email: auth.info.email).first_or_initialize do |user|
-      user.name = auth.info.name
-      user.email = auth.info.email
-    end
-  end
+    validates :email, presence: true
+    validates :image, presence: true
+    validates :uid, presence: true
+    validates :token, presence: true
+    validates :refresh_token, presence: true
+    validates :expires_at, presence: true
 end
