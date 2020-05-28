@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   layout false
+  skip_before_action :verify_authenticity_token, :except => [:logout]
   def index
   end
   def create
@@ -43,19 +44,39 @@ class SessionsController < ApplicationController
   end
 
   def logout
-    @user = User.find_by uid:params[:uid] 
+    @user = User.find_by uid: params[:uid] 
     if @user
       if @user.update_attributes({
-        access_token: nil,
-        refresh_token: nil,
+        token: "",
+        refresh_token: "",
         expires_at: Time.now
       })
+      redirect_to root_path
       else
-        redirect_to root_path
+        render json: {message: "Logout Failed", error: @user.errors}, status: :unprocessable_entity
       end
     else
       render json: "User not found", status: :unprocessable_entity
     end
+  end
+
+  def expired
+    @user = User.find_by uid: params[:uid]
+    if @user
+      user_expired = @user.expired?
+      render json: {
+        message: "Expiration verified",
+        data: user_expired
+      },
+      status: :ok
+    else
+      render json: {
+        message: "User Not Found",
+        error: @user.errors
+      },
+      status: :unprocessable_entity
+    end
+
   end
 
   private
