@@ -63,6 +63,17 @@ ActiveRecord::Schema.define(version: 2020_05_25_204905) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "userscourses", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "course_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["course_id"], name: "index_userscourses_on_course_id"
+    t.index ["user_id"], name: "index_userscourses_on_user_id"
+  end
+
   add_foreign_key "lessons", "courses"
   add_foreign_key "phrases", "lessons"
+  add_foreign_key "userscourses", "courses"
+  add_foreign_key "userscourses", "users"
 end
