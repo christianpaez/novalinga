@@ -19,7 +19,7 @@ class SessionsController < ApplicationController
       if @user.update(user_params)
           @user = user_params
       else
-        render json: "error", status: 422
+        render json: "Error Updating User", status: 422
       end
     else
       # new user creation
@@ -76,8 +76,25 @@ class SessionsController < ApplicationController
       },
       status: :unprocessable_entity
     end
-
   end
+
+  def refresh_token
+    @user = User.find_by uid: params[:uid]
+    if @user.fresh_token
+      render json: {
+        message: "Token Updated",
+        data: @user
+      },
+      status: :ok
+    else
+      render json: {
+        message: "User token not update",
+        error: @user.errors
+      },
+      status: :unprocessable_entity
+    end
+  end
+
 
   private
   def create_params

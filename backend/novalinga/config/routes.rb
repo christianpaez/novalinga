@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   root 'sessions#new'
   delete "/logout/:uid", to: "sessions#logout"
   get "/expired/:uid", to: "sessions#expired"
+  get "/refresh-token/:uid", to: "sessions#refresh_token"
   resources :sessions, only: :index
   get "/auth/:provider/callback" => 'sessions#create'
 end

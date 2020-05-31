@@ -1,7 +1,7 @@
 require 'json'
 require 'net/http'
 class Token < ApplicationRecord
-    def to_params
+      def to_params
         {'refresh_token' => refresh_token,
         'client_id' => ENV['GOOGLE_CLIENT_ID'],
         'client_secret' => ENV['GOOGLE_CLIENT_SECRET'],

@@ -1,4 +1,5 @@
 class PhrasesController < ApplicationController
+  before_action :user_logged
   # GET /phrases
   def index
     @phrases = Phrase.all
@@ -32,6 +33,35 @@ class PhrasesController < ApplicationController
     render json: @phrase, status: :ok
   end
 
+  def user_logged
+    puts "before action"
+    headers = request.headers["Authorization"]
+    if headers
+      puts headers
+      @user = User.find_by uid: headers.to_s
+      puts @user
+      if @user 
+        @user.expired?
+        if @user.expired?
+          render  json: {
+          message: "Token Expired",
+          data: @user
+        }, status: 401          
+        end
+      else
+        render  json: {
+        message: "User Not Found",
+        data: @user
+      }, status: :unprocessable_entity
+      end
+
+    else
+      render  json: {
+        message: "Invalid Authorization Header",
+        data: ""
+      }, status: 401
+    end
+  end
   private
   def create_params
     params.require(:phrase).permit(:input_language, :output_language, :phonetic, :audio_url, :lesson_id)
