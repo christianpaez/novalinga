@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :lessons, only: [:index, :show, :create, :update, :destroy]
   resources :courses, only: [:index, :show, :create, :update, :destroy]
   resources :userscourses, only: [:index, :show, :create, :update, :destroy]
-  
+  resources :phonetics, only: [:index, :show]
   # Routes for Google authentication
   # [START login]
   # get "/login", to: redirect("/auth/google_oauth2")

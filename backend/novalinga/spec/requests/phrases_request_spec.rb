@@ -33,17 +33,17 @@ RSpec.describe "Phrases endpoint", type: :request do
 
         })
     end
-    scenario "using google oauth2" do
-        stub_omniauth
-    end
-    describe "GET /phrases" do
-        before { get '/phrases' }
-            it "Should return 200 Status code" do
-              payload = JSON.parse(response.body)
-              expect(payload).to be_empty
-              expect(response).to have_http_status(200)
-            end
-    end
+    # scenario "using google oauth2" do
+    #     stub_omniauth
+    # end
+    # describe "GET /phrases" do
+    #     before { get '/phrases' }
+    #         it "Should return 200 Status code" do
+    #           payload = JSON.parse(response.body)
+    #           expect(payload).to be_empty
+    #           expect(response).to have_http_status(200)
+    #         end
+    # end
     # describe "with data in the database" do
     #     let!(:phrases) { create_list(:phrase, 10)}
     #     it " should return all the phrases" do
