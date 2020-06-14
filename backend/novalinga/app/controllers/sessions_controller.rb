@@ -1,8 +1,8 @@
 class SessionsController < ApplicationController
+  include SessionsHelper
   layout false
   skip_before_action :verify_authenticity_token, :except => [:logout]
-  def index
-  end
+
   def create
     user_info = request.env["omniauth.auth"]
     @user = User.find_by uid:user_info[:uid] 
@@ -46,12 +46,13 @@ class SessionsController < ApplicationController
   def logout
     @user = User.find_by uid: params[:uid] 
     if @user
+      # destroy user token
       if @user.update_attributes({
         token: "",
         refresh_token: "",
         expires_at: Time.now
       })
-      redirect_to root_path
+      render json: {message: "Logout Successful", data: @user}, status: :ok
       else
         render json: {message: "Logout Failed", error: @user.errors}, status: :unprocessable_entity
       end
@@ -78,7 +79,7 @@ class SessionsController < ApplicationController
     end
   end
 
-  def refresh_token
+  def fresh_token
     @user = User.find_by uid: params[:uid]
     if @user.fresh_token
       render json: {
@@ -88,8 +89,8 @@ class SessionsController < ApplicationController
       status: :ok
     else
       render json: {
-        message: "User token not update",
-        error: @user.errors
+        message: "Token expired, please login",
+        error: "User token expired"
       },
       status: :unprocessable_entity
     end

@@ -1,38 +1,6 @@
 require 'rails_helper'
 require 'byebug'
 RSpec.describe "Phrases endpoint", type: :request do
-    def stub_omniauth
-        # first, set OmniAuth to run in test mode
-        OmniAuth.config.test_mode = true
-        # then, provide a set of fake oauth data that
-        # omniauth will use when a user tries to authenticate:
-        OmniAuth.config.mock_auth[:google] = OmniAuth::AuthHash.new({
-            provider: "google_oauth2",
-            uid: "123456789",
-            info:{
-                email: "mail@domail.com",
-                unverified_email: "mail@domail.com",
-                verified_email: true,
-                image: "https://domain.com/image.jpg"
-            },
-            credentials: {
-                token: "xxxxxx",
-                refresh_token: "xxxxxxx.1234",
-                expires_at: 1590957743,
-                expires: true
-            },
-            extra: {
-                id_token: "xxxxxx",
-                raw_info: {
-                    sub: "123456789",
-                    picture: "https://domain.com/image.jpg",
-                    email: "mail@domail.com",
-                    email_verified: true
-                }
-            }
-
-        })
-    end
     # scenario "using google oauth2" do
     #     stub_omniauth
     # end
