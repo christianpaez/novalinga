@@ -81,19 +81,12 @@ class SessionsController < ApplicationController
 
   def fresh_token
     @user = User.find_by uid: params[:uid]
-    if @user.fresh_token
+    @user.fresh_token
       render json: {
-        message: "Token Updated",
+        message: "Token retrieved/refreshed",
         data: @user
       },
       status: :ok
-    else
-      render json: {
-        message: "Token expired, please login",
-        error: "User token expired"
-      },
-      status: :unprocessable_entity
-    end
   end
 
 
