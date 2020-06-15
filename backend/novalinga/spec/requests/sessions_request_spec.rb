@@ -138,20 +138,18 @@ RSpec.describe "Sessions", type: :request do
   describe "Get valid token" do
     let!(:user) { create(:user)}
     it "Should get user valid token" do
-      expires_at = (Time.now + 300).to_datetime
+      expires_at = (Time.now + 300)
       user.expires_at = expires_at
       user.save
       get "/fresh-token/#{user.uid}" 
       response_body = JSON.parse(response.body)
-
-      byebug
       expect(response_body["message"]).to eq("Token retrieved/refreshed")
       expect(response_body["data"]["email"]).to eq(user.email)
       expect(response_body["data"]["image"]).to eq(user.image)
       expect(response_body["data"]["uid"]).to eq(user.uid)
       expect(response_body["data"]["token"]).to eq(user.token)
       expect(response_body["data"]["refresh_token"]).to eq(user.refresh_token)
-      expect(response_body["data"]["expires_at"]).to eq(expires_at)
+      expect(response_body["data"]["expires_at"].to_datetime.in_time_zone.round).to eq(expires_at.round.to_datetime.in_time_zone)
       expect(response).to have_http_status(200)
       end
   end
