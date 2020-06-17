@@ -1,36 +1,38 @@
 class LessonsController < ApplicationController
+    include ApplicationHelper
+    before_action :require_login, only: [:index, :show]
     # GET /lessons
     def index
         @lessons = Lesson.all
-        render json: @lessons, status: :ok
+        render json: {message: "Lessons retrieved", data: @lessons}, status: :ok
     end
 
     # GET /lessons/:id
     def show
         @lesson = Lesson.find(params[:id]) 
-        render json: @lesson, status: :ok
+        render json: {message: "Lesson retrieved with id: #{params[:id]}", data: @lesson}, status: :ok
     end
 
-    #POST /lessons
-    def create 
-        @lesson = Lesson.new(create_params)
-        @lesson.save
-        render json: @lesson, status: :created
-    end
+    # #POST /lessons
+    # def create 
+    #     @lesson = Lesson.new(create_params)
+    #     @lesson.save
+    #     render json: @lesson, status: :created
+    # end
 
-    # PUT /lessons/:id
-    def update
-        @lesson = Lesson.find(params[:id])
-        @lesson.update!(update_params)
-        render json: @lesson, status: :ok
-    end
+    # # PUT /lessons/:id
+    # def update
+    #     @lesson = Lesson.find(params[:id])
+    #     @lesson.update!(update_params)
+    #     render json: @lesson, status: :ok
+    # end
 
-    #DELETE /lessons/:id
-    def destroy
-        @lesson = Lesson.find(params[:id])
-        @lesson.destroy
-        render json: @lesson, status: :ok
-    end
+    # #DELETE /lessons/:id
+    # def destroy
+    #     @lesson = Lesson.find(params[:id])
+    #     @lesson.destroy
+    #     render json: @lesson, status: :ok
+    # end
 
     private
     def create_params

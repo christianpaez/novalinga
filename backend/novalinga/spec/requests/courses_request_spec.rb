@@ -35,7 +35,6 @@ RSpec.describe "Courses endpoint", type: :request do
 
     describe "GET /courses" do
         let!(:user) {create(:user)}
-        
             it "Should return 200 Status code" do
                 expires_at = (Time.now + 300)
                 user.expires_at = expires_at
@@ -61,20 +60,60 @@ RSpec.describe "Courses endpoint", type: :request do
             expect(response).to have_http_status(200)
         end
     end
-    # describe "GET /courses/:id" do
-    #     let!(:course) { create(:course)}
-    #     before { get "/courses/#{course.id}" }
-    #     it "Should return a single phrase" do
-    #         payload = JSON.parse(response.body)
-    #         expect(payload).not_to be_empty
-    #         expect(payload['id']).to eq(course.id)
-    #         expect(payload['input_language']).to eq(course.input_language)
-    #         expect(payload['output_language']).to eq(course.output_language)
-    #         expect(payload['title']).to eq(course.title)
-    #         expect(payload['image_url']).to eq(course.image_url)
-    #         expect(response).to have_http_status(200)
-    #     end
-    # end
+
+    describe "GET /courses/:id with no auth header" do
+        let!(:course) {create(:course)}
+        before { get "/courses/#{course.id}" }
+            it "Should return empty headers message" do
+              response_body = JSON.parse(response.body)
+              expect(response_body["message"]).to eq("Bad request")
+              expect(response_body["error"]).to eq("Authorization header missing")
+              expect(response).to have_http_status(400)
+            end
+    end
+
+    describe "GET /courses/:id with invalid user uid" do
+        let!(:course) {create(:course)}
+        before { get "/courses/#{course.id}", params:{}, headers: { 'Authorization' => 'xxxx' } }
+            it "Should return user not found message" do
+              response_body = JSON.parse(response.body)
+              expect(response_body["message"]).to eq("Please login")
+              expect(response_body["error"]).to eq("User not found")
+              expect(response).to have_http_status(422)
+            end
+    end
+
+    describe "GET /courses/:id with invalid expired token" do
+        let!(:user) {create(:user)}
+        let!(:course) {create(:course)}
+        before { get "/courses/#{course.id}", params:{}, headers: { 'Authorization' => user.uid } }
+            it "Should return expired token message" do
+              response_body = JSON.parse(response.body)
+              expect(response_body["message"]).to eq("Please login")
+              expect(response_body["error"]).to eq("User token expired")
+              expect(response).to have_http_status(422)
+            end
+    end
+
+    describe "GET /courses/:id" do
+        let!(:course) { create(:course)}
+        let!(:user) { create(:user)}
+        it "Should return a single course" do
+            expires_at = (Time.now + 300)
+            user.expires_at = expires_at
+            user.save
+            get "/courses/#{course.id}", params:{}, headers: { 'Authorization' => user.uid }
+            response_body = JSON.parse(response.body)
+            expect(response_body).not_to be_empty
+            expect(response_body["data"]['id']).to eq(course.id)
+            expect(response_body["data"]['input_language']).to eq(course.input_language)
+            expect(response_body["data"]['output_language']).to eq(course.output_language)
+            expect(response_body["data"]['title']).to eq(course.title)
+            expect(response_body["data"]['image_url']).to eq(course.image_url)
+            expect(response_body["message"]).to eq("Course retrieved with id: #{course.id}")
+            expect(response).to have_http_status(200)
+        end
+    end
     # describe "POST /courses" do
     #     let!(:course) { create(:course)}
     #     it "Should create a course" do

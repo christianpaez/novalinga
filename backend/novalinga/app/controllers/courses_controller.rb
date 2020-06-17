@@ -1,17 +1,17 @@
 class CoursesController < ApplicationController
     include ApplicationHelper
-    before_action :require_login, only: :index
+    before_action :require_login, only: [:index, :show]
     # GET /courses
     def index
         @courses = Course.all
         render json: {message: "Courses retrieved", data: @courses}, status: :ok
     end
 
-    # # GET /courses/:id
-    # def show
-    #     @course = Course.find(params[:id]) 
-    #     render json: @course, status: :ok
-    # end
+    # GET /courses/:id
+    def show
+        @course = Course.find(params[:id]) 
+        render json: {message: "Course retrieved with id: #{params[:id]}", data: @course}, status: :ok
+    end
 
     # #POST /courses
     # def create 
