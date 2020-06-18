@@ -3,7 +3,13 @@ class LessonsController < ApplicationController
     before_action :require_login, only: [:index, :show]
     # GET /lessons
     def index
-        @lessons = Lesson.all
+        course_id =  params[:course_id]
+        if course_id
+            @lessons = Lesson.where(course_id: course_id)
+        else
+            @lessons = Lesson.all
+        end
+
         render json: {message: "Lessons retrieved", data: @lessons}, status: :ok
     end
 

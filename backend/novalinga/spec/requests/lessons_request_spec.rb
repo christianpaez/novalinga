@@ -60,6 +60,35 @@ RSpec.describe "Lessons endpoint", type: :request do
         end
     end
 
+    describe "GET /lessons?course_id=" do
+        let!(:user) {create(:user)}
+        it "Should return 200 Status code" do
+            expires_at = (Time.now + 300)
+            user.expires_at = expires_at
+            user.save
+            get '/lessons?course_id=', params:{}, headers: { 'Authorization' => user.uid }
+            response_body = JSON.parse(response.body)
+            expect(response_body["data"].size).to eq(0)
+            expect(response_body["message"]).to eq("Lessons retrieved")
+            expect(response).to have_http_status(200)
+        end
+    end
+    describe "query params course_id with data in the database" do
+        let!(:course) {create(:course)}
+        let!(:lessons) { create_list(:lesson, 10, course_id: course.id)}
+        let!(:user) {create(:user)}
+        it " should return all the lessons with given course id" do
+            expires_at = (Time.now + 300)
+            user.expires_at = expires_at
+            user.save
+            get "/lessons?course_id=#{course.id}", params:{}, headers: { 'Authorization' => user.uid }
+            response_body = JSON.parse(response.body)
+            expect(response_body["data"].size).to eq(lessons.size)
+            expect(response_body["message"]).to eq("Lessons retrieved")
+            expect(response).to have_http_status(200)
+        end
+    end
+
     describe "GET /lessons/:id with no auth header" do
         let!(:lesson) {create(:lesson)}
         before { get "/lessons/#{lesson.id}" }

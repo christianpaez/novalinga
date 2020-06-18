@@ -1,15 +1,22 @@
 class PhrasesController < ApplicationController
-  before_action :user_logged
+  include ApplicationHelper
+  before_action :require_login, only: [:index, :show]
   # GET /phrases
   def index
-    @phrases = Phrase.all
-    render json: @phrases, status: :ok
+    lesson_id_param = params[:lesson_id]
+    if lesson_id_param
+      @phrases = Phrase.where(lesson_id: lesson_id_param)
+    else
+      @phrases = Phrase.all
+      
+    end
+    render json: {message: "Phrases retrieved", data: @phrases}, status: :ok
   end
 
   # GET /phrases/:id
   def show
     @phrase = Phrase.find(params[:id]) 
-    render json: @phrase, status: :ok
+    render json: {message: "Phrase retrieved with id: #{params[:id]}", data: @phrase}, status: :ok
   end
 
   #POST /phrases
@@ -33,35 +40,6 @@ class PhrasesController < ApplicationController
     render json: @phrase, status: :ok
   end
 
-  def user_logged
-    puts "before action"
-    headers = request.headers["Authorization"]
-    if headers
-      puts headers
-      @user = User.find_by uid: headers.to_s
-      puts @user
-      if @user 
-        @user.expired?
-        if @user.expired?
-          render  json: {
-          message: "Token Expired",
-          data: @user
-        }, status: 401          
-        end
-      else
-        render  json: {
-        message: "User Not Found",
-        data: @user
-      }, status: :unprocessable_entity
-      end
-
-    else
-      render  json: {
-        message: "Invalid Authorization Header",
-        data: ""
-      }, status: 401
-    end
-  end
   private
   def create_params
     params.require(:phrase).permit(:input_language, :output_language, :phonetic, :audio_url, :lesson_id)
