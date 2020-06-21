@@ -19,26 +19,26 @@ class PhrasesController < ApplicationController
     render json: {message: "Phrase retrieved with id: #{params[:id]}", data: @phrase}, status: :ok
   end
 
-  #POST /phrases
-  def create 
-    @phrase = Phrase.new(create_params)
-    @phrase.save
-    render json: @phrase, status: :created
-  end
+  # #POST /phrases
+  # def create 
+  #   @phrase = Phrase.new(create_params)
+  #   @phrase.save
+  #   render json: @phrase, status: :created
+  # end
 
-  # PUT /phrases/:id
-  def update
-    @phrase = Phrase.find(params[:id])
-    @phrase.update!(update_params)
-    render json: @phrase, status: :ok
-  end
+  # # PUT /phrases/:id
+  # def update
+  #   @phrase = Phrase.find(params[:id])
+  #   @phrase.update!(update_params)
+  #   render json: @phrase, status: :ok
+  # end
 
-  #DELETE /phrases/:id
-  def destroy
-    @phrase = Phrase.find(params[:id])
-    @phrase.destroy
-    render json: @phrase, status: :ok
-  end
+  # #DELETE /phrases/:id
+  # def destroy
+  #   @phrase = Phrase.find(params[:id])
+  #   @phrase.destroy
+  #   render json: @phrase, status: :ok
+  # end
 
   private
   def create_params
