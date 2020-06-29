@@ -5,6 +5,9 @@ class User < ApplicationRecord
     validates :token, presence: true, allow_blank: true
     validates :refresh_token, presence: true, allow_blank: true
     validates :expires_at, presence: true
+    has_many :userscourses
+    has_many :courses, through: :userscourses
+
     def expired?
         self.expires_at < Time.now
     end

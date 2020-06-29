@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :phrases, only: [:index, :show, :create, :update, :destroy]
   resources :lessons, only: [:index, :show, :create, :update, :destroy]
   resources :courses, only: [:index, :show, :create, :update, :destroy]
-  resources :userscourses, only: [:index, :show, :create, :update, :destroy]
+  resources :userscourses, only: [:create, :destroy],param: :course_id
   resources :phonetics, only: [:index, :show]
   # Routes for Google authentication
   # [START login]

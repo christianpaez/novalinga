@@ -71,7 +71,7 @@ function IndexNavbar() {
             target="_blank"
             title="Novalinga"
           >
-            Novalinga
+            <h3 className = "text-primary">Novalinga</h3>
           </NavbarBrand>
           <button
             aria-expanded={navbarCollapse}
