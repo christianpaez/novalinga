@@ -68,10 +68,12 @@ function IndexNavbar() {
           <NavbarBrand
             data-placement="bottom"
             href="/index"
-            target="_blank"
             title="Novalinga"
+            className="text-primary"
           >
-            <h3 className = "text-primary">Novalinga</h3>
+            <img className = "mr-2" src={require("assets/img/logo.png")} height = {40} alt="logo" />
+            Novalinga{" "}
+            Aprende Idiomas
           </NavbarBrand>
           <button
             aria-expanded={navbarCollapse}
@@ -90,7 +92,25 @@ function IndexNavbar() {
           navbar
           isOpen={navbarCollapse}
         >
-            
+          <Nav navbar>
+            <NavItem>
+              <NavLink
+                href="https://demos.creative-tim.com/paper-kit-react/#/documentation?ref=pkr-index-navbar"
+                target="_blank"
+              >
+                <i className="fa fa-commenting" /> Guía Fonética
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink
+                href="https://demos.creative-tim.com/paper-kit-react/#/documentation?ref=pkr-index-navbar"
+                target="_blank"
+              >
+                <i className="fa fa-book" /> Cursos
+              </NavLink>
+            </NavItem>
+          </Nav>
+         
         </Collapse>
       </Container>
     </Navbar>
