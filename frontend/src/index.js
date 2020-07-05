@@ -24,16 +24,26 @@ import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 import "assets/css/bootstrap.min.css";
 import "assets/scss/paper-kit.scss?v=1.2.0";
 import "assets/demo/demo.css?v=1.2.0";
+// components
+import IndexNavbar from "components/Navbars/IndexNavbar.js";
 // pages
 import Index from "views/Index.js";
+import PhoneticGuide from "views/PhoneticGuide.js";
+import Courses from "views/Courses.js";
+
 // others
 
 ReactDOM.render(
+  <>
+  <IndexNavbar/>
   <BrowserRouter>
     <Switch>
       <Route path="/index" render={(props) => <Index {...props} />} />
+      <Route path="/phonetic-guide" render={(props) => <PhoneticGuide {...props} />} />
+      <Route path="/courses" render={(props) => <Courses {...props} />} />
       <Redirect to="/index" />
     </Switch>
-  </BrowserRouter>,
+  </BrowserRouter>
+  </>,
   document.getElementById("root")
 );

@@ -40,19 +40,7 @@ function Index() {
           <Container>
             <Row className="mt-5">
               <Col className="ml-auto mr-auto" md="8">
-                <h2 className="title">Aprenda las frases mas importantes de cualquier idioma</h2>
-                <h5 className="description">
-                  En esta plataforma tendrá acceso a las frases mas populares utilizadas
-                  en nuestra vida cotidiana en varios idiomas de forma GRATUITA.
-                </h5>
-                <br />
-                <Button
-                  className="btn-round"
-                  color="primary"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  Iniciar
-                </Button>
+                <h2 className="title">Courses</h2>
               </Col>
             </Row>
             </Container>

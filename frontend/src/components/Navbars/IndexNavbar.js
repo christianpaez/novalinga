@@ -20,6 +20,8 @@ import React from "react";
 // nodejs library that concatenates strings
 import classnames from "classnames";
 // reactstrap components
+// css
+import './styles.css'
 import {
   Button,
   Collapse,
@@ -65,14 +67,14 @@ function IndexNavbar() {
     <Navbar className={classnames("fixed-top", navbarColor)} expand="lg">
       <Container>
         <div className="navbar-translate">
+        <img src={require("assets/img/logo.png")} height = {40} alt="logo" />
           <NavbarBrand
             data-placement="bottom"
             href="/index"
             title="Novalinga"
             className="text-primary"
           >
-            <img className = "mr-2" src={require("assets/img/logo.png")} height = {40} alt="logo" />
-            Novalinga{" "}
+            Novalinga<br/>
             Aprende Idiomas
           </NavbarBrand>
           <button
@@ -95,16 +97,14 @@ function IndexNavbar() {
           <Nav navbar>
             <NavItem>
               <NavLink
-                href="https://demos.creative-tim.com/paper-kit-react/#/documentation?ref=pkr-index-navbar"
-                target="_blank"
+                href="/phonetic-guide"
               >
                 <i className="fa fa-commenting" /> Guía Fonética
               </NavLink>
             </NavItem>
             <NavItem>
               <NavLink
-                href="https://demos.creative-tim.com/paper-kit-react/#/documentation?ref=pkr-index-navbar"
-                target="_blank"
+                href="/courses"
               >
                 <i className="fa fa-book" /> Cursos
               </NavLink>
