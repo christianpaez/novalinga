@@ -22,6 +22,7 @@ import {
   Button,
   Container,
   Row,
+  NavLink,
   Col,
 } from "reactstrap";
 
@@ -33,6 +34,7 @@ function Index() {
       document.body.classList.remove("index");
     };
   });
+
   return (
     <>
       <div className="main">
@@ -46,13 +48,12 @@ function Index() {
                   en nuestra vida cotidiana en varios idiomas de forma GRATUITA.
                 </h5>
                 <br />
-                <Button
-                  className="btn-round"
-                  color="primary"
-                  onClick={(e) => e.preventDefault()}
+                <NavLink
+                  className="btn btn-round btn-primary d-inline-block"
+                  href={`${process.env.REACT_APP_SERVER_URL}/auth/google_oauth2`}
                 >
                   Iniciar
-                </Button>
+                </NavLink>
               </Col>
             </Row>
             
@@ -71,7 +72,7 @@ function Index() {
               <Col md="6">
                 <div className="info">
                   <div className="icon icon-secondary">
-                  <i class="fa fa-volume-up" aria-hidden="true"></i>
+                  <i className="fa fa-volume-up" aria-hidden="true"></i>
                   </div>
                   <div className="description">
                     <h4 className="info-title">Alfabeto fonético</h4>
@@ -95,7 +96,7 @@ function Index() {
               <Col md="6">
                 <div className="info">
                   <div className="icon icon-secondary">
-                    <i class="fa fa-book" aria-hidden="true"></i>
+                    <i className="fa fa-book" aria-hidden="true"></i>
                   </div>
                   <div className="description">
                     <h4 className="info-title">Cursos/Guías</h4>

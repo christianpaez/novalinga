@@ -12,7 +12,10 @@ gem 'puma', '~> 4.1'
 # Google Oauth
 gem 'omniauth-google-oauth2'
 gem "omniauth"
+# Testing with figaro
 gem "figaro"
+# JWT
+gem 'jwt'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production

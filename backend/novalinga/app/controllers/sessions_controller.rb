@@ -18,6 +18,11 @@ class SessionsController < ApplicationController
       }
       if @user.update(user_params)
           @user = user_params
+          hmac_secret = 'my$ecretK3y'
+
+          token = JWT.encode @user, hmac_secret, 'HS256'
+
+          redirect_to "#{Rails.application.config.frontend_url}/#{token}"
       else
         render json: "Error Updating User", status: 422
       end
@@ -32,6 +37,11 @@ class SessionsController < ApplicationController
       expires_at: Time.at(user_info["credentials"]["expires_at"]).to_datetime
       }
       User.create(@user)
+      hmac_secret = 'my$ecretK3y'
+
+      token = JWT.encode @user, hmac_secret, 'HS256'}
+      
+      redirect_to "#{Rails.application.config.frontend_url}/#{token}"
     end
     
     # Token.create(

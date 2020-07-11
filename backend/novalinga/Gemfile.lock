@@ -217,6 +217,7 @@ DEPENDENCIES
   factory_bot_rails (~> 4.0)
   faker (~> 1.9)
   figaro
+  jwt
   omniauth
   omniauth-google-oauth2
   pg (>= 0.18, < 2.0)
