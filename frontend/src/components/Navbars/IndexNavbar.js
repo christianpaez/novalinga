@@ -67,12 +67,12 @@ function IndexNavbar() {
     <Navbar className={classnames("fixed-top", navbarColor)} expand="lg">
       <Container>
         <div className="navbar-translate">
-        <img src={require("assets/img/logo.png")} height = {40} alt="logo" />
+        <img  className = "ml-4 ml-sm-0" src={require("assets/img/logo.png")} height = {40} alt="logo" />
           <NavbarBrand
             data-placement="bottom"
             href="/index"
             title="Novalinga"
-            className="text-primary"
+            className="text-primary mr-auto"
           >
             Novalinga<br/>
             Aprende Idiomas
