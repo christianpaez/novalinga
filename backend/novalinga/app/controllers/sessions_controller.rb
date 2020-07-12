@@ -1,7 +1,10 @@
 class SessionsController < ApplicationController
   include SessionsHelper
+  include AuthHelper
+  include ApplicationHelper
   layout false
   skip_before_action :verify_authenticity_token, :except => [:logout]
+  before_action :require_login, only: [:get_user]
 
   def create
     user_info = request.env["omniauth.auth"]
@@ -18,11 +21,9 @@ class SessionsController < ApplicationController
       }
       if @user.update(user_params)
           @user = user_params
-          hmac_secret = 'my$ecretK3y'
+          token = encode(@user)
 
-          token = JWT.encode @user, hmac_secret, 'HS256'
-
-          redirect_to "#{Rails.application.config.frontend_url}/#{token}"
+          redirect_to "#{Rails.application.config.frontend_url}/auth/#{token}"
       else
         render json: "Error Updating User", status: 422
       end
@@ -37,11 +38,10 @@ class SessionsController < ApplicationController
       expires_at: Time.at(user_info["credentials"]["expires_at"]).to_datetime
       }
       User.create(@user)
-      hmac_secret = 'my$ecretK3y'
 
-      token = JWT.encode @user, hmac_secret, 'HS256'}
+      token = encode(@user)
       
-      redirect_to "#{Rails.application.config.frontend_url}/#{token}"
+      redirect_to "#{Rails.application.config.frontend_url}/auth/#{token}"
     end
     
     # Token.create(
@@ -71,13 +71,14 @@ class SessionsController < ApplicationController
     end
   end
 
-  def expired
-    @user = User.find_by uid: params[:uid]
+  def get_user
     if @user
-      user_expired = @user.expired?
       render json: {
-        message: "Expiration verified",
-        data: user_expired
+        message: "User verified",
+        data: {
+          email: @user.email,
+          image: @user.image
+        }
       },
       status: :ok
     else

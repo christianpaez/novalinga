@@ -46,7 +46,7 @@ Rails.application.configure do
   ENV['GOOGLE_CLIENT_SECRET'] = "K6Fpfg2SDJI7Ry2qqtOQQeK_"
 
   #Frontend Url
-  config.frontend_url = 'http://localhost:4000/index'
+  config.frontend_url = 'http://localhost:4000'
 
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true

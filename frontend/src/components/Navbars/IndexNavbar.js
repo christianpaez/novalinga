@@ -33,7 +33,7 @@ import {
   Container,
 } from "reactstrap";
 
-function IndexNavbar() {
+function IndexNavbar(props) {
   const [navbarColor, setNavbarColor] = React.useState("navbar-primary");
   const [navbarCollapse, setNavbarCollapse] = React.useState(false);
 
@@ -76,6 +76,7 @@ function IndexNavbar() {
           >
             Novalinga<br/>
             Aprende Idiomas
+            {JSON.stringify(props)}
           </NavbarBrand>
           <button
             aria-expanded={navbarCollapse}
