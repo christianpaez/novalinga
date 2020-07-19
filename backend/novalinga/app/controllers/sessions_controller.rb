@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
   include ApplicationHelper
   layout false
   skip_before_action :verify_authenticity_token, :except => [:logout]
-  before_action :require_login, only: [:get_user]
+  before_action :require_login, only: [:get_user, :logout]
 
   def create
     user_info = request.env["omniauth.auth"]
@@ -22,7 +22,7 @@ class SessionsController < ApplicationController
       if @user.update(user_params)
           @user = user_params
           token = encode(@user)
-
+        
           redirect_to "#{Rails.application.config.frontend_url}/auth/#{token}"
       else
         render json: "Error Updating User", status: 422
@@ -54,7 +54,6 @@ class SessionsController < ApplicationController
   end
 
   def logout
-    @user = User.find_by uid: params[:uid] 
     if @user
       # destroy user token
       if @user.update_attributes({
@@ -72,12 +71,13 @@ class SessionsController < ApplicationController
   end
 
   def get_user
+    puts @user["email"]
     if @user
       render json: {
         message: "User verified",
         data: {
-          email: @user.email,
-          image: @user.image
+          email: @user["email"],
+          image: @user["image"]
         }
       },
       status: :ok
@@ -99,7 +99,6 @@ class SessionsController < ApplicationController
       },
       status: :ok
   end
-
 
   private
   def create_params

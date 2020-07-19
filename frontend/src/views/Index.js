@@ -52,7 +52,7 @@ function Index() {
                   className="btn btn-round btn-primary d-inline-block"
                   href={`${process.env.REACT_APP_SERVER_URL}/auth/google_oauth2`}
                 >
-                  Iniciar
+                   Iniciar
                 </NavLink>
               </Col>
             </Row>

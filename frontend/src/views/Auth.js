@@ -27,6 +27,8 @@ import {
   Col,
 } from "reactstrap";
 
+import * as AppService from '../services/App.js'
+
 
 function Auth(props) {
   const history = useHistory();
@@ -34,8 +36,9 @@ function Auth(props) {
   React.useEffect(() => {
     setCookie()
   });
-  const setCookie = () => {
-    document.cookie = `jwt=${props.match.params.token}`
+  const setCookie = async () => {
+    console.log("setCookie")
+    document.cookie = `jwt=${props.match.params.token}; path=/`
     history.push("/courses")
   }
   return (

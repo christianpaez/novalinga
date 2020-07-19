@@ -35,11 +35,5 @@ class User < ApplicationRecord
     def fresh_token
         refresh if expired?
         token 
-    end
-
-    
-
-    
-
-    
+    end  
 end

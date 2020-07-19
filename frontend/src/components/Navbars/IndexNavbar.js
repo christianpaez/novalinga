@@ -32,8 +32,13 @@ import {
   Nav,
   Container,
 } from "reactstrap";
+import { servicesVersion } from "typescript";
+
+// services
+import { logout } from '../../services/App'
 
 function IndexNavbar(props) {
+  const { user } = props
   const [navbarColor, setNavbarColor] = React.useState("navbar-primary");
   const [navbarCollapse, setNavbarCollapse] = React.useState(false);
 
@@ -76,7 +81,6 @@ function IndexNavbar(props) {
           >
             Novalinga<br/>
             Aprende Idiomas
-            {JSON.stringify(props)}
           </NavbarBrand>
           <button
             aria-expanded={navbarCollapse}
@@ -110,6 +114,15 @@ function IndexNavbar(props) {
                 <i className="fa fa-book" /> Cursos
               </NavLink>
             </NavItem>
+            {user.logged && 
+            <NavItem>
+            <NavLink
+                  className="btn btn-round btn-danger text-white d-inline-block"
+                  onClick={()=> logout()}
+                >
+                  Cerrar sesión
+                </NavLink>
+            </NavItem>}
           </Nav>
          
         </Collapse>

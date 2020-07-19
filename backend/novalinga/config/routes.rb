@@ -22,8 +22,9 @@ Rails.application.routes.draw do
   #get "/logout", to: "sessions#destroy"
   # [END logout]
   root 'sessions#new'
-  delete "/logout/:uid", to: "sessions#logout"
+  delete "/logout", to: "sessions#logout"
   get "/get_user", to: "sessions#get_user"
+  get "/redirect", to: "sessions#redirect"
   get "/fresh-token/:uid", to: "sessions#fresh_token"
   resources :sessions, only: :index
   get "/auth/:provider/callback" => 'sessions#create'

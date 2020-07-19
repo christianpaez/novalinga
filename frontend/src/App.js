@@ -3,9 +3,9 @@ import {userContext} from './context/userContext';
 import Main from './views/Main'
 
 // services
-import * as AppService from './services/App.tsx'
+import * as AppService from './services/App.js'
 // helpers
-import * as AppHelper from './helpers/App.tsx'
+import * as AppHelper from './helpers/App.js'
 
 class App extends React.Component {
   constructor(props) {
@@ -15,8 +15,25 @@ class App extends React.Component {
     };
   }
 
-  componentDidMount() {
-    AppService.getUser()
+  async componentDidMount() {
+    try {
+      console.log("component did mount")
+      console.log(document.location.pathname)
+      if(!document.location.pathname.includes("auth")){
+
+        const user = await AppService.getUser()
+        console.log(user)
+        this.setState({
+          user: {
+            email: user.email,
+            image: user.image,
+            logged: true
+          }
+        })
+      }
+      } catch (error) {
+      
+    }
   }
 
   render() {
