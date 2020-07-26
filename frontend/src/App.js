@@ -1,28 +1,39 @@
 import React from "react";
-import {userContext} from './context/userContext';
-import Main from './views/Main'
-
+import { userContext } from './context/userContext';
 // services
-import * as AppService from './services/App.js'
-// helpers
-import * as AppHelper from './helpers/App.js'
+import * as AppService from './services/App.js';
+import Main from './views/Main';
+
+
 
 class App extends React.Component {
   constructor(props) {
     super(props);
+
+    // set User
+    this.setUser = async () => {
+      const user = await AppService.getUser()
+        console.log(user)
+        this.setState({
+          user: {
+            email: user.email,
+            image: user.image,
+            logged: true
+          }
+        })
+    }
+
     this.state = {
-        user: {}
+        user: {},
+        setUser: this.setUser
     };
   }
 
   async componentDidMount() {
     try {
-      console.log("component did mount")
-      console.log(document.location.pathname)
       if(!document.location.pathname.includes("auth")){
 
         const user = await AppService.getUser()
-        console.log(user)
         this.setState({
           user: {
             email: user.email,
@@ -32,14 +43,15 @@ class App extends React.Component {
         })
       }
       } catch (error) {
-      
     }
   }
+
+
 
   render() {
     return (
       // Pass user state as value to context.Provider so it can be consumed by context.Consumer
-      <userContext.Provider value={this.state.user}>
+      <userContext.Provider value={this.state}>
         <Main/>
       </userContext.Provider>
     );

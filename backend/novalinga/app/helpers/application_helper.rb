@@ -2,7 +2,6 @@ module ApplicationHelper
     include AuthHelper
     def require_login
             auth_header = request.cookies["jwt"]
-            puts "require login"
             if auth_header.nil?
                 render json: {message: "Bad request", error: "Authorization header missing"}, status: 400
             else 

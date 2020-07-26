@@ -16,26 +16,27 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
 // nodejs library that concatenates strings
 import classnames from "classnames";
+import React from "react";
+import {
+  Collapse,
+
+
+
+
+
+  Container, Nav, Navbar, NavbarBrand,
+
+  NavItem,
+  NavLink
+} from "reactstrap";
+// services
+import { logout } from '../../services/App';
 // reactstrap components
 // css
-import './styles.css'
-import {
-  Button,
-  Collapse,
-  NavbarBrand,
-  Navbar,
-  NavItem,
-  NavLink,
-  Nav,
-  Container,
-} from "reactstrap";
-import { servicesVersion } from "typescript";
+import './styles.css';
 
-// services
-import { logout } from '../../services/App'
 
 function IndexNavbar(props) {
   const { user } = props

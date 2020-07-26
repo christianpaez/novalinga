@@ -16,9 +16,8 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
-// router
-import { useHistory } from "react-router-dom";
+import React, { useCallback } from "react";
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import {
   Card,
   CardBody,
@@ -29,31 +28,35 @@ import {
 // services
 import * as Appservice from '../services/App';
 
+function Lessons() {
 
+  let { courseId } = useParams();
+  let location = useLocation();
+  let history = useHistory();
 
-
-function Courses() {
-
-  const history = useHistory()
-
-  const [courses, setCourses] = React.useState([])
+  const [lessons, setLessons] = React.useState([])
   document.documentElement.classList.remove("nav-open");
+
+  const fetchAndSetLessons = useCallback(async ()=>{
+    
+      const lessons = await Appservice.getLessons(courseId);
+      setLessons(lessons)
+    }, [courseId],
+  )
+
+
   React.useEffect(() => {
-    fetchAndSetCourses()
+    fetchAndSetLessons()
     document.body.classList.add("index");
     return function cleanup() {
       document.body.classList.remove("index");
     };
-  }, []);
+  }, [fetchAndSetLessons]);
 
-  const fetchAndSetCourses = async () => {
-    const courses = await Appservice.getCourses();
-    setCourses(courses)
+  const goToPhrases = (lessonId) => {
+    history.push(`${location.pathname}/${lessonId}`)
   }
 
-  const goToLesson = (courseId) => {
-    history.push(`courses/${courseId}`)
-  }
 
   return (
     <>
@@ -62,24 +65,24 @@ function Courses() {
           <Container>
             <Row className="mt-5">
               <Col className="ml-auto mr-auto" md="8">
-                <h2 className="title">Cursos</h2>
-                <h5 className="title">Elige un curso para continuar</h5>
+                <h2 className="title">Lecciones</h2>
+                <h5 className="title">Elige una lección para continuar</h5>
               </Col>
             </Row>
             <Row className="mt-5">
-              {courses.length > 0 && (
-                courses.map((course) =>{
-                  const {id} = course
+              {lessons.length > 0 && (
+                lessons.map((lesson) =>{
+                  let { id } = lesson
                 return(
                   <Col className="ml-auto mr-auto" md="8" key = {id}>
                     <Card 
-                        style={{width: '20rem'}}
+                        style={{width: '20rem'}} 
                         className='pointer'
-                        onClick={()=> goToLesson(id)}
-                    >
+                        onClick={()=>goToPhrases(id)}
+                        >
                         <CardImg top src="" alt="..." />
                         <CardBody>
-                            <CardText>{course.title}</CardText>
+                            <CardText>{lesson.title}</CardText>
                         </CardBody>
                     </Card>
                 </Col>
@@ -94,4 +97,4 @@ function Courses() {
   );
 }
 
-export default Courses;
+export default Lessons;

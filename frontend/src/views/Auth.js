@@ -17,17 +17,14 @@
 
 */
 import React from "react";
-
 import { useHistory } from "react-router-dom";
-
 import {
-  Button,
-  Container,
-  Row,
-  Col,
+  Col, Container,
+  Row
 } from "reactstrap";
 
-import * as AppService from '../services/App.js'
+
+
 
 
 function Auth(props) {
@@ -37,13 +34,13 @@ function Auth(props) {
     setCookie()
   });
   const setCookie = async () => {
-    console.log("setCookie")
     document.cookie = `jwt=${props.match.params.token}; path=/`
+    props.user.setUser()
     history.push("/courses")
   }
   return (
     <>
-    <p>{JSON.stringify(props.match.params)}</p>
+    
       <div className="main">
         <div className="section text-center">
           <Container>

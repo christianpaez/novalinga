@@ -17,13 +17,11 @@
 
 */
 import React from "react";
-
 import {
-  Button,
-  Container,
-  Row,
-  Col,
+  Col, Container,
+  Row
 } from "reactstrap";
+
 
 function Index() {
   document.documentElement.classList.remove("nav-open");
