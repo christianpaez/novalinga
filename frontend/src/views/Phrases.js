@@ -26,7 +26,7 @@ import {
   Row
 } from "reactstrap";
 // services
-import * as Appservice from '../services/App';
+import * as Appservice from '../services/App.ts';
 
 
 function Phrases() {

@@ -1,7 +1,7 @@
 import React from "react";
 import { userContext } from './context/userContext';
 // services
-import * as AppService from './services/App.js';
+import * as AppService from './services/App.ts';
 import Main from './views/Main';
 
 

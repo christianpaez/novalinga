@@ -2,7 +2,7 @@ import axios from 'axios';
 
 
 
-const getUser = () => {
+const getUser = (): Promise<any> => {
     // Send a POST request
     return new Promise((resolve, reject) => {
 
@@ -38,7 +38,7 @@ axios({
 })
 } 
 
-const logout = () => {
+const logout = (): Promise<any> => {
   // Send a POST request
   return new Promise((resolve, reject) => {
 
@@ -78,7 +78,7 @@ axios({
 })
 } 
 
-const getCourses = () => {
+const getCourses = (): Promise<any> => {
   // Send a GET request
   return new Promise((resolve, reject) => {
 
@@ -89,6 +89,7 @@ axios({
 })
 .then((response) => {
     // Simulate an HTTP redirect:
+    console.log(response)
     resolve(response.data.data)
 })
 .catch(function (error) {
@@ -115,7 +116,7 @@ axios({
 })
 } 
 
-const getLessons = (id) => {
+const getLessons = (id: string): Promise<any> => {
   // Send a GET request
   return new Promise((resolve, reject) => {
 
@@ -152,7 +153,7 @@ axios({
 })
 } 
 
-const getPhrases = (lessonId) => {
+const getPhrases = (lessonId: string): Promise<any> => {
   // Send a GET request
   return new Promise((resolve, reject) => {
 

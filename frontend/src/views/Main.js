@@ -24,7 +24,7 @@ import IndexNavbar from "components/Navbars/IndexNavbar.js";
 // pages
 import Index from "views/Index.js";
 import PhoneticGuide from "views/PhoneticGuide.js";
-import Courses from "views/Courses.js";
+import Courses from "views/Courses.tsx";
 import Auth from "views/Auth.js";
 import Lessons from "views/Lessons.js";
 import Phrases from "views/Phrases.js";

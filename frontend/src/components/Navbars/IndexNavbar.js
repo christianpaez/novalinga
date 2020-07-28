@@ -32,7 +32,7 @@ import {
   NavLink
 } from "reactstrap";
 // services
-import { logout } from '../../services/App';
+import { logout } from '../../services/App.ts';
 // reactstrap components
 // css
 import './styles.css';

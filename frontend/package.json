@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.19.2",
-    "classnames": "2.2.6",
+    "classnames": "^2.2.6",
     "moment": "2.26.0",
     "node-sass": "4.14.1",
     "nouislider": "14.5.0",
@@ -42,11 +42,13 @@
       "last 1 safari version"
     ]
   },
-  "optionalDependencies": {
-    "typescript": "3.9.5"
-  },
+  "optionalDependencies": {},
   "devDependencies": {
     "@imaginary-cloud/eslint-config-react": "1.0.1",
+    "@types/react": "^16.9.43",
+    "@types/react-dom": "^16.9.8",
+    "@types/styled-components": "^5.1.1",
+    "awesome-typescript-loader": "^5.2.1",
     "eslint-config-airbnb": "18.1.0",
     "eslint-config-prettier": "6.10.1",
     "eslint-plugin-import": "2.20.2",
@@ -56,6 +58,8 @@
     "eslint-plugin-react-hooks": "2.5.1",
     "gulp": "4.0.2",
     "gulp-append-prepend": "1.0.8",
-    "prettier": "^2.0.5"
+    "prettier": "^2.0.5",
+    "source-map-loader": "^1.0.1",
+    "typescript": "^3.9.5"
   }
 }

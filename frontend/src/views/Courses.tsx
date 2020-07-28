@@ -29,6 +29,9 @@ import {
 // services
 import * as Appservice from '../services/App';
 
+//  interfaces
+import CourseI from '../interfaces/Courses'
+
 
 
 
@@ -36,7 +39,7 @@ function Courses() {
 
   const history = useHistory()
 
-  const [courses, setCourses] = React.useState([])
+  const [courses, setCourses] = React.useState<CourseI[]>([])
   document.documentElement.classList.remove("nav-open");
   React.useEffect(() => {
     fetchAndSetCourses()
