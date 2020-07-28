@@ -71,7 +71,6 @@ class SessionsController < ApplicationController
   end
 
   def get_user
-    puts @user["email"]
     if @user
       render json: {
         message: "User verified",

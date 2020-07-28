@@ -85,6 +85,10 @@ const getCourses = (): Promise<any> => {
 axios({
   method: 'get',
   url: `${process.env.REACT_APP_SERVER_URL}/courses`,
+  headers:{
+    'Accept':'*/*',
+    'Content-type':'application/json'
+  },
   withCredentials: true
 })
 .then((response) => {

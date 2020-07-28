@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Courses</h1>
+
+<table>
+  <thead>
+    <tr>
+       
+        <td>id</td>
+        <td>Title</td>
+        <td>image_url</td>
+        <td>input_language</td>
+        <td>output_language</td>
+        <td>created_at</td>
+        <td>updated_at</td>
+        <td>Actions</td>
+         	 	 	 	
+      </tr>
+  </thead>
+
+  <tbody>
+    <% @courses.each do |course| %>
+      <tr>
+        <% course.attributes.each do |attribute| %>
+            <td><%= attribute[1] %></td>
+        <% end %>
+        <td><%= link_to 'Show', course %></td>
+        <td><%= link_to 'Edit', edit_course_path(course) %></td>
+        <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+

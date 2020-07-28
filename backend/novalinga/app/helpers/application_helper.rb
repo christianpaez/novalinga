@@ -6,7 +6,6 @@ module ApplicationHelper
                 render json: {message: "Bad request", error: "Authorization header missing"}, status: 400
             else 
                 user_uid = decode(auth_header)
-                puts "decoded: #{user_uid}"
             @user = User.find_by uid: user_uid
             if @user
                 token_expired = @user.expired?

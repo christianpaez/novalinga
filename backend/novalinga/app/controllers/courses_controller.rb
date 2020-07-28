@@ -4,13 +4,20 @@ class CoursesController < ApplicationController
     # GET /courses
     def index
         @courses = Course.all
-        render json: {message: "Courses retrieved", data: @courses}, status: :ok
+        respond_to do |format|
+            format.json { render json: {message: "Courses retrieved", data: @courses}, status: :ok }
+            format.html  { render :index}
+        end
     end
 
     # GET /courses/:id
     def show
         @course = Course.find(params[:id]) 
         render json: {message: "Course retrieved with id: #{params[:id]}", data: @course}, status: :ok
+    end
+
+    def edit
+        
     end
 
     # #POST /courses

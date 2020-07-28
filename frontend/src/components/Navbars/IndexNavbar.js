@@ -20,10 +20,7 @@
 import classnames from "classnames";
 import React from "react";
 import {
-  Collapse,
-
-
-
+  Collapse,Button,
 
 
   Container, Nav, Navbar, NavbarBrand,
@@ -73,14 +70,14 @@ function IndexNavbar(props) {
     <Navbar className={classnames("fixed-top", navbarColor)} expand="lg">
       <Container>
         <div className="navbar-translate">
-        <img  className = "ml-4 ml-sm-0" src={require("assets/img/logo.png")} height = {40} alt="logo" />
+          <img className="ml-4 ml-sm-0" src={require("assets/img/logo.png")} height={40} alt="logo" />
           <NavbarBrand
             data-placement="bottom"
             href="/index"
             title="Novalinga"
             className="text-primary mr-auto"
           >
-            Novalinga<br/>
+            Novalinga<br />
             Aprende Idiomas
           </NavbarBrand>
           <button
@@ -104,6 +101,7 @@ function IndexNavbar(props) {
             <NavItem>
               <NavLink
                 href="/phonetic-guide"
+                className="text-secondary"
               >
                 <i className="fa fa-commenting" /> Guía Fonética
               </NavLink>
@@ -111,21 +109,22 @@ function IndexNavbar(props) {
             <NavItem>
               <NavLink
                 href="/courses"
+                className="text-secondary"
               >
                 <i className="fa fa-book" /> Cursos
               </NavLink>
             </NavItem>
-            {user.logged && 
-            <NavItem>
-            <NavLink
+            {user.logged &&
+              <NavItem>
+                <Button
                   className="btn btn-round btn-danger text-white d-inline-block"
-                  onClick={()=> logout()}
+                  onClick={() => logout()}
                 >
                   Cerrar sesión
-                </NavLink>
-            </NavItem>}
+                </Button>
+              </NavItem>}
           </Nav>
-         
+
         </Collapse>
       </Container>
     </Navbar>
