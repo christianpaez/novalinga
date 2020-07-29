@@ -1,0 +1,20 @@
+<table>
+  <thead>
+     <tr>
+        <td>id</td>
+        <td>Title</td>
+        <td>image_url</td>
+        <td>input_language</td>
+        <td>output_language</td>
+        <td>created_at</td>
+        <td>updated_at</td>	 	 	 	
+      </tr>
+</thead>  
+<tr>
+        <% @course.attributes.each do |attribute| %>
+          <td><%= attribute[1] %></td>
+        <% end %> </tr>
+    </table>
+
+<%= link_to 'Edit', edit_course_path(@course) %> |
+<%= link_to 'Back', courses_path %>

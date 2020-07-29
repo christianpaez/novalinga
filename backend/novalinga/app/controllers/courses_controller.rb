@@ -1,6 +1,9 @@
 class CoursesController < ApplicationController
     include ApplicationHelper
-    before_action :require_login, only: [:index, :show]
+    include CoursesHelper
+    before_action :require_login, only: [:index, :show], :unless => :html_request?
+    before_action :authenticate_admin!, :if => :html_request?
+    before_action :set_course, only: [:show, :edit], :if => :html_request?
     # GET /courses
     def index
         @courses = Course.all
@@ -12,8 +15,10 @@ class CoursesController < ApplicationController
 
     # GET /courses/:id
     def show
-        @course = Course.find(params[:id]) 
-        render json: {message: "Course retrieved with id: #{params[:id]}", data: @course}, status: :ok
+        respond_to do |format|
+            format.json { render json: {message: "Course retrieved with id: #{params[:id]}", data: @course}, status: :ok }
+            format.html { render :show} 
+        end
     end
 
     def edit

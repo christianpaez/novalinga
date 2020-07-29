@@ -17,4 +17,8 @@ module ApplicationHelper
             end
         end
     end
+
+    def html_request?
+        request.format.html?
+    end
 end
