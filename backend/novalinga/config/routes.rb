@@ -3,9 +3,12 @@ Rails.application.routes.draw do
   devise_for :admins
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   get '/health', to: 'health#health'
+  
+  resources :courses, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
+    resources :lessons, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+  end
   resources :phrases, only: [:index, :show, :create, :update, :destroy]
-  resources :lessons, only: [:index, :show, :create, :update, :destroy]
-  resources :courses, only: [:index, :show, :create, :edit, :update, :destroy]
+  
   resources :userscourses, only: [:create, :destroy],param: :course_id
   resources :phonetics, only: [:index, :show]
   # Routes for Google authentication

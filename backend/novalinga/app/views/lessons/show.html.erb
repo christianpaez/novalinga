@@ -1,0 +1,22 @@
+<table>
+  <thead>
+    <tr>
+      <td>id</td>
+      <td>Title</td>
+      <td>image_url</td>
+      <td>course title</td>
+      <td>created_at</td>
+      <td>updated_at</td>
+    </tr>
+  </thead>
+  <tr>
+    <td><%= @lesson[:id] %></td>
+    <td><%= @lesson[:title] %></td>
+    <td><%= @lesson[:image_url] %></td>
+    <td><%= @course[:title] %></td>
+    <td><%= @lesson[:created_at].strftime('%F') %></td>
+    <td><%= @lesson[:updated_at].strftime('%F') %></td>
+  </tr>
+</table>
+<%= link_to 'Edit', edit_course_lesson_path(@course, @lesson) %> |
+<%= link_to 'Back', course_lessons_path %>
