@@ -2,8 +2,7 @@ class LessonsController < ApplicationController
     include ApplicationHelper
     include LessonsHelper
     before_action :require_login, only: [:index, :show], :unless => :html_request?
-    before_action :authenticate_admin!, :if => :html_request?
-    before_action :set_course, only: [:index, :show, :new, :edit, :update, :destroy]
+    before_action :set_course, only: [:index, :show, :new, :create, :edit, :update, :destroy]
     before_action :set_lesson, only: [:show, :edit, :update,:destroy]
     # GET /lessons
     def index
@@ -34,6 +33,20 @@ class LessonsController < ApplicationController
 
     def new
         @lesson = Lesson.new
+    end
+
+    # #POST /courses/:id/lessons
+    def create 
+        @lesson = Lesson.new(lesson_params)
+        respond_to do |format|
+            if @lesson.save
+              format.html { redirect_to course_lesson_path(@course, @lesson), notice: 'Lesson was successfully created.' }
+              format.json { render json: @lesson, status: :created }
+            else
+              format.html { render :new }
+              format.json { render json: @course.errors, status: :unprocessable_entity }
+            end
+          end
     end
 
 

@@ -126,7 +126,7 @@ const getLessons = (id: string): Promise<any> => {
 
 axios({
   method: 'get',
-  url: `${process.env.REACT_APP_SERVER_URL}/lessons?course_id=${id}`,
+  url: `${process.env.REACT_APP_SERVER_URL}/courses/${id}/lessons`,
   withCredentials: true
 })
 .then((response) => {

@@ -38,7 +38,6 @@ function Lessons() {
   document.documentElement.classList.remove("nav-open");
 
   const fetchAndSetLessons = useCallback(async ()=>{
-    
       const lessons = await Appservice.getLessons(courseId);
       setLessons(lessons)
     }, [courseId],
@@ -70,7 +69,7 @@ function Lessons() {
               </Col>
             </Row>
             <Row className="mt-5">
-              {lessons.length > 0 && (
+              {lessons && lessons.length > 0 && (
                 lessons.map((lesson) =>{
                   let { id } = lesson
                 return(

@@ -1,0 +1,37 @@
+<%= form_with(model: @phrase, url: course_lesson_phrases_path(@course, @lesson), local: true) do |form| %>
+  <% if @phrase.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@phrase.errors.count, "error") %> prohibited this booking from being saved:</h2>
+      <ul>
+        <% @phrase.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+    <div class="field">
+    <%= form.label :audio_url %>
+    <%= form.text_field :audio_url %>
+  </div>
+
+  <div class="field">
+    <%= form.label :input_language %>
+    <%= form.text_field :input_language %>
+  </div>
+
+  <div class="field">
+    <%= form.label :output_language %>
+    <%= form.text_field :output_language %>
+  </div>
+
+  <div class="field">
+    <%= form.label :phonetic %>
+    <%= form.text_field :phonetic %>
+  </div>
+
+    <%= hidden_field :phrase, :lesson_id, :value => @lesson.id %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

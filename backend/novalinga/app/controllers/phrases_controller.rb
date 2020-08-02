@@ -1,16 +1,22 @@
 class PhrasesController < ApplicationController
   include ApplicationHelper
-  before_action :require_login, only: [:index, :show]
-  # GET /phrases
+  include PhrasesHelper
+  before_action :require_login, only: [:index, :show], :unless => :html_request?
+  before_action :set_lesson_and_course, only: [:index, :new, :create] 
+  # GET courses/:course_id/lessons/:lesson_id/phrases
   def index
-    lesson_id_param = params[:lesson_id]
-    if lesson_id_param
-      @phrases = Phrase.where(lesson_id: lesson_id_param)
+    @phrases = Phrase.where(lesson_id: @lesson.id)
+    if @phrases
+      respond_to do |format|
+        format.json  { render json: {message: "Phrases retrieved", data: @phrases}, status: :ok }
+        format.html  { render :index }
+      end
     else
-      @phrases = Phrase.all
-      
+      respond_to do |format|
+          format.json { render json: @phrases.errors, status: :unprocessable_entity }
+          format.html  { redirect_to course_lessons_path(@course, @lesson) }
+      end
     end
-    render json: {message: "Phrases retrieved", data: @phrases}, status: :ok
   end
 
   # GET /phrases/:id
@@ -18,6 +24,25 @@ class PhrasesController < ApplicationController
     @phrase = Phrase.find(params[:id]) 
     render json: {message: "Phrase retrieved with id: #{params[:id]}", data: @phrase}, status: :ok
   end
+
+  def new
+    @phrase = Phrase.new
+    
+  end
+
+  # #POST /courses/:id/lessons/:id/phrases
+  def create 
+    @phrase = Phrase.new(phrase_params)
+    respond_to do |format|
+        if @phrase.save
+          format.html { redirect_to course_lesson_phrase_path(@course, @lesson, @phrase), notice: 'Phrase was successfully created.' }
+          format.json { render json: @phrase, status: :created }
+        else
+          format.html { render :new }
+          format.json { render json: @course.errors, status: :unprocessable_entity }
+        end
+      end
+end
 
   # #POST /phrases
   # def create 
@@ -41,11 +66,7 @@ class PhrasesController < ApplicationController
   # end
 
   private
-  def create_params
+  def phrase_params
     params.require(:phrase).permit(:input_language, :output_language, :phonetic, :audio_url, :lesson_id)
-  end
-
-  def update_params
-    params.require(:phrase).permit(:input_language, :output_language, :phonetic, :audio_url)
   end
 end

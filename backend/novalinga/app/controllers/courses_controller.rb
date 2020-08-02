@@ -2,7 +2,6 @@ class CoursesController < ApplicationController
     include ApplicationHelper
     include CoursesHelper
     before_action :require_login, only: [:index, :show], :unless => :html_request?
-    before_action :authenticate_admin!, :if => :html_request?
     before_action :set_course, only: [:show, :edit, :update, :destroy], :if => :html_request?
     # GET /courses
     def index

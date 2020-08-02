@@ -5,9 +5,10 @@ Rails.application.routes.draw do
   get '/health', to: 'health#health'
   
   resources :courses, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
-    resources :lessons, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+    resources :lessons, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
+      resources :phrases, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+    end
   end
-  resources :phrases, only: [:index, :show, :create, :update, :destroy]
   
   resources :userscourses, only: [:create, :destroy],param: :course_id
   resources :phonetics, only: [:index, :show]

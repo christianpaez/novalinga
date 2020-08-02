@@ -19,10 +19,7 @@
     <%= form.text_field :image_url %>
   </div>
 
-  <div class="field">
-    <%= form.label :course_id %>
-    <%= form.number_field :course_id %>
-  </div>
+    <%= hidden_field :lesson, :course_id, :value => @course.id %>
 
   <div class="actions">
     <%= form.submit %>

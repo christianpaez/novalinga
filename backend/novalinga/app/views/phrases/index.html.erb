@@ -1,0 +1,37 @@
+<h1>Phrases for lesson: <%= @lesson.title%></h1>
+<table>
+  <thead>
+    <tr>
+      <td>id</td>
+      <td>Audio Url</td>
+      <td>Input language</td>
+      <td>Output language</td>
+      <td>Lesson</td>
+      <td>created_at</td>
+      <td>updated_at</td>
+      <td>Actions</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @phrases.each do |phrase| %>
+      <tr>
+        <td><%= phrase[:id] %></td>
+        <td><%= phrase[:audio_url] %></td>
+        <td><%= phrase[:input_language] %></td>
+        <td><%= phrase[:output_language] %></td>
+        <td><%= phrase[:phonetic] %></td>
+        <td><%= @lesson[:title] %></td>
+        <td><%= phrase[:created_at].strftime('%F') %></td>
+        <td><%= phrase[:updated_at].strftime('%F') %></td>
+        <td><%= link_to 'Show', course_lesson_phrase_path(@course, @lesson, phrase) %></td>
+        <td><%= link_to 'Edit', edit_course_lesson_phrase_path(@course, @lesson, phrase) %></td>
+        <td><%= button_to 'Destroy', course_lesson_phrase_path(@course, @lesson, phrase), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+
+<%= link_to 'Go to lessons', course_lessons_path(@course) %>
+
+<%= link_to 'New phrase', new_course_lesson_phrase_path %>
