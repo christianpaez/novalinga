@@ -2,23 +2,24 @@
   <thead>
     <tr>
       <td>id</td>
-      <td>Title</td>
-      <td>image_url</td>
-      <td>course title</td>
+      <td>audio_url</td>
+      <td>input_language</td>
+      <td>output_language</td>
+      <td>phonetic</td>
       <td>created_at</td>
       <td>updated_at</td>
     </tr>
   </thead>
   <tr>
-    <td><%= @lesson[:id] %></td>
-    <td><%= @lesson[:title] %></td>
-    <td><%= @lesson[:image_url] %></td>
-    <td><%= @course[:title] %></td>
-    <td><%= @lesson[:created_at].strftime('%F') %></td>
-    <td><%= @lesson[:updated_at].strftime('%F') %></td>
+    <td><%= @phrase[:id] %></td>
+    <td><%= @phrase[:audio_url] %></td>
+    <td><%= @phrase[:input_language] %></td>
+    <td><%= @phrase[:output_language] %></td>
+    <td><%= @phrase[:phonetic] %></td>
+    <td><%= @phrase[:created_at].strftime('%F') %></td>
+    <td><%= @phrase[:updated_at].strftime('%F') %></td>
   </tr>
 </table>
-<%= link_to 'Phrases', course_lesson_phrases_path(@course, @lesson) %>
-<%= link_to 'Edit', edit_course_lesson_path(@course, @lesson) %> |
-<%= button_to 'Delete', course_lesson_path(@course, @lesson), method: :delete %> |
-<%= link_to 'Back', course_lessons_path %>
+<%= link_to 'Edit', edit_course_lesson_phrase_path(@course, @lesson, @phrase) %> |
+<%= button_to 'Delete', course_lesson_phrase_path(@course, @lesson, @phrase), method: :delete %> |
+<%= link_to 'Back', course_lesson_phrases_path %>

@@ -1,6 +1,6 @@
-<h1>Editing Lesson <%= @lesson.id%></h1>
+<h1>Editing Phrase <%= @phrase.id%></h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', course_lesson_path(@course, @lesson) %> |
-<%= link_to 'Back', course_lessons_path %>
+<%= link_to 'Show', course_lesson_phrase_path(@course, @lesson, @phrase) %> |
+<%= link_to 'Back', course_lesson_phrases_path %>

@@ -2,7 +2,9 @@ class PhrasesController < ApplicationController
   include ApplicationHelper
   include PhrasesHelper
   before_action :require_login, only: [:index, :show], :unless => :html_request?
-  before_action :set_lesson_and_course, only: [:index, :new, :create] 
+  before_action :set_lesson_and_course, only: [:index, :new, :create, :show, :edit, :update, :destroy] 
+  before_action :set_phrase, only: [:show, :edit, :update, :destroy]
+  
   # GET courses/:course_id/lessons/:lesson_id/phrases
   def index
     @phrases = Phrase.where(lesson_id: @lesson.id)
@@ -19,10 +21,12 @@ class PhrasesController < ApplicationController
     end
   end
 
-  # GET /phrases/:id
+  # GET courses/:course_id/lessons/:lesson_id/phrases/:id
   def show
-    @phrase = Phrase.find(params[:id]) 
-    render json: {message: "Phrase retrieved with id: #{params[:id]}", data: @phrase}, status: :ok
+    respond_to do |format|
+        format.json {     render json: {message: "Phrase retrieved with id: #{params[:id]}", data: @phrase}, status: :ok }
+        format.html { render :show} 
+    end
   end
 
   def new
@@ -34,14 +38,30 @@ class PhrasesController < ApplicationController
   def create 
     @phrase = Phrase.new(phrase_params)
     respond_to do |format|
-        if @phrase.save
-          format.html { redirect_to course_lesson_phrase_path(@course, @lesson, @phrase), notice: 'Phrase was successfully created.' }
-          format.json { render json: @phrase, status: :created }
-        else
-          format.html { render :new }
-          format.json { render json: @course.errors, status: :unprocessable_entity }
-        end
+      if @phrase.save
+        format.html { redirect_to course_lesson_phrase_path(@course, @lesson, @phrase), notice: 'Phrase was successfully created.' }
+        format.json { render json: @phrase, status: :created }
+      else
+        format.html { render :new }
+        format.json { render json: @phrase.errors, status: :unprocessable_entity }
       end
+    end
+end
+
+def edit
+  
+end
+
+def update
+  respond_to do |format|
+      if @phrase.update(phrase_params)
+          format.html { redirect_to course_lesson_phrase_path(@course, @lesson, @phrase), flash: {info: 'Phrase was successfully updated.'} }
+          format.json { render json: {message: "Lesson Updated with id: #{@phrase[:id]}", data: @phrase}, status: :ok }
+      else
+          format.html { render :edit }
+          format.json { render json: @phrase.errors, status: :unprocessable_entity }
+      end
+  end
 end
 
   # #POST /phrases
@@ -64,6 +84,19 @@ end
   #   @phrase.destroy
   #   render json: @phrase, status: :ok
   # end
+
+  def destroy
+    respond_to do |format|
+        if @phrase.destroy
+            format.html { redirect_to course_lesson_phrases_path(@course, @lesson), flash: {info: 'Phrase was successfully deleted.'} }
+            format.json { render json: {message: "Phrase Deleted with id: #{@phrase[:id]}"}, status: :ok }
+        else
+            format.html { render :index }
+            format.json { render json: @phrase.errors, status: :unprocessable_entity }
+        end
+    end
+    
+end
 
   private
   def phrase_params

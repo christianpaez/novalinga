@@ -12,9 +12,11 @@ require 'faker'
 
 Phonetic.destroy_all
 Lesson.destroy_all
+Userscourse.destroy_all
 Course.destroy_all
 Phrase.destroy_all
 User.destroy_all
+Admin.destroy_all
 
 user = User.new({
     email: Faker::Internet.email ,
@@ -62,3 +64,10 @@ end
         phrase.save
     end
 end
+
+# create admin
+
+Admin.create({
+    email: "green_pok@hotmail.com",
+    password: "Novalinga#1894"
+})

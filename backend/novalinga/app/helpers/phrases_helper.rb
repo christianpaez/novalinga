@@ -4,4 +4,8 @@ module PhrasesHelper
         @lesson = Lesson.find(params[:lesson_id])
         @course = Course.find(params[:course_id])
     end
+
+    def set_phrase
+        @phrase = Phrase.find(params[:id])
+    end
 end
